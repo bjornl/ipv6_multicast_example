@@ -20,7 +20,7 @@ main(int argc, char *argv[])
 	struct ipv6_mreq mreq;
 	char buf[1400];
 	ssize_t len;
-	int sd, fd, rc, on = 1, flag = 0, ifidx = 0;
+	int sd, fd, rc, on = 1, flag = 0, hops = 255, ifidx = 0;
 	struct timeval tv;
 	fd_set fds;
 
@@ -41,6 +41,11 @@ main(int argc, char *argv[])
 	}
 
 	if (setsockopt(sd, IPPROTO_IPV6, IPV6_MULTICAST_IF, &ifidx, sizeof(ifidx))) {
+		perror("setsockopt");
+		return 1;
+	}
+
+	if (setsockopt(sd, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, &hops, sizeof(hops))) {
 		perror("setsockopt");
 		return 1;
 	}

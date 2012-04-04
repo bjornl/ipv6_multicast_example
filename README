@@ -2,14 +2,14 @@
   IPv6 multicast example
 ==========================
 
-ipv6_multicast_send - client for joining a multicast group and read data from stdin and transmit udp datagrams
+ipv6_multicast_send - client for joining multicast group, read data from stdin and transmit udp datagrams
 
-ipv6_multicast_recv - client for joining a multicast group and recvieving udp datagrams and write data to stdout
+ipv6_multicast_recv - client for joining multicast group, receiving udp datagrams and write data to stdout
 
-To use another interface that default (tunnel, etc), update variable ifidx.
+To use another interface that default (e.g. tunnel), update variable ifidx.
 (In Linux "ip link show" lists all interfaces and their corresponding index number)
 
-To avoid fragmentation on a link with a lower MTU than standard 1500 bytes (tunnel, etc),
+To avoid fragmentation on a link with a lower MTU than standard 1500 bytes (e.g. tunnel),
 update buffer size 1400 to whatever value you want, leave enough room for protocol headers.
 
   Example usage

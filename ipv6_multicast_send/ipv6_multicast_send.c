@@ -20,7 +20,7 @@ main(int argc, char *argv[])
 	struct ipv6_mreq mreq;
 	char buf[1400];
 	ssize_t len;
-	int sd, fd, on = 1, ifidx = 0;
+	int sd, fd, on = 1, hops = 255, ifidx = 0;
 
 	if (argc < 3) {
 		printf("\nUsage: %s <address> <port>\n\nExample: %s ff02::5:6 12345\n\n", argv[0], argv[0]);
@@ -35,6 +35,11 @@ main(int argc, char *argv[])
 	}
 
 	if (setsockopt(sd, IPPROTO_IPV6, IPV6_MULTICAST_IF, &ifidx, sizeof(ifidx))) {
+		perror("setsockopt");
+		return 1;
+	}
+
+	if (setsockopt(sd, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, &hops, sizeof(hops))) {
 		perror("setsockopt");
 		return 1;
 	}
