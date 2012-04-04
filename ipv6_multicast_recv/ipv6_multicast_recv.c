@@ -49,6 +49,11 @@ main(int argc, char *argv[])
 		perror("setsockopt");
 		return 1;
 	}
+
+	if (setsockopt(sd, IPPROTO_IPV6, IPV6_MULTICAST_LOOP, &on, sizeof(on))) {
+		perror("setsockopt");
+		return 1;
+	}
  
 	memset(&saddr, 0, sizeof(saddr));
 	saddr.sin6_family = AF_INET6;

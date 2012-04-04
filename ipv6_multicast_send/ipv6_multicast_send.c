@@ -44,6 +44,11 @@ main(int argc, char *argv[])
 		return 1;
 	}
 
+	if (setsockopt(sd, IPPROTO_IPV6, IPV6_MULTICAST_LOOP, &on, sizeof(on))) {
+		perror("setsockopt");
+		return 1;
+	}
+
 	memset(&saddr, 0, sizeof(struct sockaddr_in6));
 	saddr.sin6_family = AF_INET6;
 	saddr.sin6_port = htons(atoi(argv[2]));
@@ -74,6 +79,7 @@ main(int argc, char *argv[])
 		} else {
 			len = sendto(sd, buf, len, 0, (const struct sockaddr *) &saddr, sizeof(saddr));
 			/* printf("sent %zd bytes to sd\n", len); */
+			usleep(10000); /* rate limit, 10000 = 135 kilobyte/s */
 		}
 	}
 
