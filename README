@@ -1,0 +1,50 @@
+
+  IPv6 multicast example
+==========================
+
+ipv6_multicast_send - client for joining a multicast group and read data from stdin and transmit udp datagrams
+
+ipv6_multicast_recv - client for joining a multicast group and recvieving udp datagrams and write data to stdout
+
+To use another interface that default (tunnel, etc), update variable ifidx.
+(In Linux "ip link show" lists all interfaces and their corresponding index number)
+
+To avoid fragmentation on a link with a lower MTU than standard 1500 bytes (tunnel, etc),
+update buffer size 1400 to whatever value you want, leave enough room for protocol headers.
+
+  Example usage
+=================
+
+ipv6_multicast_send
+--------------------
+
+Example 1:
+
+echo 'Hello World!' | ipv6_multicast_send ff02::1:5 5555
+
+Example 2:
+
+ipv6_multicast_send ff02::1:5 5555 <<EOF
+Hello World!
+Hello World again!
+Hello World and again!
+EOF
+
+Example 3:
+
+ipv6_multicast_send ff02::1:5 5555
+<enter text live on keyboard and hit ctrl+d to end input and send buffer>
+
+ipv6_multicast_recv
+--------------------
+
+Example 1:
+
+Listen for global SAP announcements and write the SAP+SDP messages to stdout.
+
+ipv6_multicast_recv ff0e::2:7ffe 9875
+
+Example 2:
+
+ipv6_multicast_recv ff0e::2:7ffe 9875 > SAPv6-messages.txt
+
