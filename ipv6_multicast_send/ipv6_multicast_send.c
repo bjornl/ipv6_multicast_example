@@ -57,7 +57,7 @@ main(int argc, char *argv[])
 	memcpy(&mreq.ipv6mr_multiaddr, &saddr.sin6_addr, sizeof(mreq.ipv6mr_multiaddr));
 	mreq.ipv6mr_interface = ifidx;
 
-	if (setsockopt(sd, IPPROTO_IPV6, IPV6_ADD_MEMBERSHIP, (char *) &mreq, sizeof(mreq))) {
+	if (setsockopt(sd, IPPROTO_IPV6, IPV6_JOIN_GROUP, (char *) &mreq, sizeof(mreq))) {
 		perror("setsockopt");
 		return 1;
 	}

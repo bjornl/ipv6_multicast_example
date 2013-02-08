@@ -19,7 +19,7 @@ main(int argc, char *argv[])
 	struct sockaddr_in6 saddr, maddr;
 	struct ipv6_mreq mreq;
 	char buf[1400];
-	ssize_t len = 1;
+	ssize_t len;
 	int sd, fd, rc, on = 1, flag = 0, hops = 255, ifidx = 0;
 	struct timeval tv;
 	fd_set fds;
@@ -71,7 +71,7 @@ main(int argc, char *argv[])
 	memcpy(&mreq.ipv6mr_multiaddr, &maddr.sin6_addr, sizeof(mreq.ipv6mr_multiaddr));
 	mreq.ipv6mr_interface = ifidx;
 
-	if (setsockopt(sd, IPPROTO_IPV6, IPV6_ADD_MEMBERSHIP, (char*) &mreq, sizeof(mreq))) {
+	if (setsockopt(sd, IPPROTO_IPV6, IPV6_JOIN_GROUP, (char *) &mreq, sizeof(mreq))) {
 		perror("setsockopt");
 		return 1;
 	}
@@ -87,7 +87,7 @@ main(int argc, char *argv[])
 		return 1;
 	}
 
-	while (len) {
+	while (1) {
 		if (flag) {
 			rc = select(sd + 1, &fds, NULL, NULL, &tv);
 			if (!rc) {
