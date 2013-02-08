@@ -19,7 +19,7 @@ main(int argc, char *argv[])
 	struct sockaddr_in6 saddr;
 	struct ipv6_mreq mreq;
 	char buf[1400];
-	ssize_t len;
+	ssize_t len = 1;
 	int sd, fd, on = 1, hops = 255, ifidx = 0;
 
 	if (argc < 3) {
