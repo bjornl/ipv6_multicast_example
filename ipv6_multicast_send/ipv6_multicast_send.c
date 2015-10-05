@@ -28,6 +28,10 @@ main(int argc, char *argv[])
 	}
 
 	sd = socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP);
+	if (sd < 0) {
+		perror("socket");
+		return 1;
+	}
 
 	if (setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on))) {
 		perror("setsockopt");

@@ -57,7 +57,7 @@ main(int argc, char *argv[])
  
 	memset(&saddr, 0, sizeof(saddr));
 	saddr.sin6_family = AF_INET6;
-	saddr.sin6_port = htons(atoi(argv[2]));;
+	saddr.sin6_port = htons(atoi(argv[2]));
 	saddr.sin6_addr = in6addr_any;
  
 	if (bind(sd, (struct sockaddr *) &saddr, sizeof(saddr))) {
